@@ -4,21 +4,21 @@ SRC_DIR :=	./src/
 OBJ_DIR :=	./obj/
 INC_DIR :=	./inc/
 
-SRC = 	main.cpp
+SRC = 	main.cpp	\
+		core/Core.cpp 	\
+		core/Tile.cpp
 
 		
 
 #	project object files
 OBJ =       $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
-INCLUDES	=	-I $(INC_DIR)
+INCLUDES	=	-I $(INC_DIR)	\
+				-I $(INC_DIR)/core
 
 
 CC_FLAGS := -Wall -Wextra -Werror -O3
 CC = clang++ -std=c++14
-
-
-
 
 all:
 	make $(NAME)
