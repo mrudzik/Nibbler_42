@@ -6,7 +6,8 @@ INC_DIR :=	./inc/
 
 SRC = 	main.cpp	\
 		core/Core.cpp 	\
-		core/Tile.cpp
+		core/Tile.cpp	\
+		core/Snake.cpp
 
 		
 
