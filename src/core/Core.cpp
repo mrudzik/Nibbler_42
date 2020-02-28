@@ -184,6 +184,7 @@ void Core::ShowMap()
 {
     std::vector<std::vector<int>> result;
 
+    // This will translate _data map on result;
     if (_data.tileMap.empty())
         return;
     for (size_t y = 0; y < _data.tileMap.size(); y++)
@@ -191,18 +192,21 @@ void Core::ShowMap()
         std::vector<int> verRow;
         for (size_t x = 0; x < _data.tileMap.at(y).size(); x++)
         {
-            // Tile* tempTile =
             verRow.push_back(_data.tileMap.at(y).at(x)->GetTileContent());
-            // std::cout << " " << tempTile->GetTileContent();
         }
-        // std::cout << "\n";
         result.push_back(verRow);
     }
-    // std::cout << std::endl;
-
-    result[_data.snake1->GetPosY()][_data.snake1->GetPosX()] = -1;
 
 
+    // This will draw snake on result
+
+    _data.snake1->MarkOccupiedTiles(result);
+
+
+
+
+
+    // This will Draw map with snake on console
     for (size_t y = 0; y < result.size(); y++)
     {
         for (size_t x = 0; x < result.at(y).size(); x++)
@@ -229,7 +233,17 @@ void Core::CreateSnakes(bool multiplayer)
 {
     (void)multiplayer;
     
-    _data.snake1 = new Snake(_data.tileMap.at(4).at(5));
+
+    int y = _data.tileMap.size() / 2;
+    int x = _data.tileMap.at(y).size() / 2;
+
+    _data.snake1 = new Snake(
+            _data.tileMap.at(y).at(x),
+            _data.tileMap.at(y - 1).at(x),
+            _data.tileMap.at(y - 1).at(x - 1),
+            _data.tileMap.at(y).at(x - 1));
+
+
     _data.snake2 = NULL;
 }
 
