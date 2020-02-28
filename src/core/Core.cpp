@@ -7,6 +7,7 @@ Core::Core(int x, int y, bool multiplayer)
     ConnectTiles();
 
     CreateSnakes(multiplayer);
+    CreateFruit();
 }
 
 Core::~Core()
@@ -261,7 +262,17 @@ void Core::CreateSnakes(bool multiplayer)
 
 
 
+void Core::CreateFruit()
+{
+    // int yNew = rand() % _data.tileMap.size();
+    // int xNew = rand() % _data.tileMap.at(yNew).size();
 
+    // if (!_data.snake1->OccupiedBySnake(xNew, yNew))
+    // {
+
+    // }
+
+}
 
 
 
@@ -287,8 +298,24 @@ void Core::CreateSnakes(bool multiplayer)
 
 void Core::MakeTurn(int direction)
 {
-    (void)direction;
-    _data.snake1->Move(direction);
+
+    if (direction == -2)
+    {
+        direction = _data.snake1->lastDir;
+        _data.snake1->Move(direction, true);
+    }
+    else if (direction < 0)
+    {
+        direction = _data.snake1->lastDir;
+        _data.snake1->Move(direction, false);
+    }
+    else
+        _data.snake1->Move(direction, false);
+    // If Fruit
+    //      Occupied by Snake
+    //          Spawn Fruit
+
+
     std::cout << "Hi" << std::endl;
     ShowMap();
 }

@@ -25,7 +25,8 @@ int    InputManager(std::string input)
         return e_Left;
     if (input.compare("6") == 0)
         return e_Right;
-
+    if (input.compare("5") == 0)
+        return -2; // Signal to grow
 
     return -1;
 }

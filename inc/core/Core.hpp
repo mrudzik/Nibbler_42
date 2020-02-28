@@ -10,9 +10,11 @@
 struct s_GameData
 {
     std::vector<std::vector<Tile*>> tileMap;
-    Snake* snake1;
-    Snake* snake2;
+    Snake* snake1 = NULL;
+    Snake* snake2 = NULL;
 
+    int fruitX = -1;
+    int fruitY = -1;
 };
 
 
@@ -32,6 +34,9 @@ private:
     void CreateSnakes(bool multiplayer);
     void ClearSnakes();
     
+    // Fruit Stuff
+    void CreateFruit();
+
 public:
     Core(int x, int y, bool multiplayer);
     ~Core();
