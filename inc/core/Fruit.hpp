@@ -15,16 +15,4 @@ public:
     int GetPosY();
 };
 
-Fruit::Fruit(int posX, int posY)
-{
-}
-
-Fruit::~Fruit()
-{
-}
-
-int Fruit::GetPosX() { return _posX; }
-int Fruit::GetPosY() { return _posY; }
-
-
 #endif

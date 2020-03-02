@@ -156,12 +156,17 @@ void MapBuilder::ShowMap(struct s_GameData &data)
         result.push_back(verRow);
     }
 
+    // This will draw fruit on result
+    for (size_t i = 0; i < data.fruits.size(); i++)
+    {
+        Fruit* tempFruit = data.fruits[i];
+        if (tempFruit == NULL)
+            continue;
+        result[tempFruit->GetPosY()][tempFruit->GetPosX()] = 5;
+    }
 
     // This will draw snake on result
-
     data.snake1->MarkOccupiedTiles(result);
-
-
 
 
 

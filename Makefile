@@ -9,7 +9,9 @@ SRC = 	main.cpp	\
 		core/Tile.cpp	\
 		core/MapBuilder.cpp \
 		core/SnakeSpawner.cpp \
-		core/Snake.cpp
+		core/Snake.cpp	\
+		core/FruitSpawner.cpp \
+		core/Fruit.cpp
 
 		
 

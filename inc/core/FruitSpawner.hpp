@@ -12,10 +12,11 @@ public:
     FruitSpawner(/* args */) {}
     ~FruitSpawner() {}
 
-    static void CreateFruit(struct s_GameData);
-    static void ClearFruit(struct s_GameData);
-};
+    static bool CreateFruit(struct s_GameData &data);
+    static void ClearFruits(struct s_GameData &data);
 
+    static void CheckFruits(struct s_GameData &data);
+};
 
 
 #endif

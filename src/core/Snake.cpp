@@ -18,18 +18,23 @@ int Snake::GetPosX() { return _currPos->GetPosX(); }
 int Snake::GetPosY() { return _currPos->GetPosY(); }
 
 
-void Snake::Move(int dir, bool growing)
+bool Snake::Move(int dir)
 {
 	if (dir < 0)
-		return;
+		dir = lastDir;
 	lastDir = dir;
+
+	Tile* nextTile = _currPos->GetSide(dir);
+	if (OccupiedBySnake(nextTile->GetPosX(), nextTile->GetPosY()))
+		return false; // Bite own tail;
 
 	Tile* newTile = _currPos;
 	_tail.insert(_tail.begin(), {newTile});
 	if (!growing)
 		_tail.pop_back();
-	
-	_currPos = _currPos->GetSide(dir);
+	growing = false;
+	_currPos = nextTile;
+	return true;
 }
 
 void Snake::MarkOccupiedTiles(std::vector<std::vector<int>> &result)

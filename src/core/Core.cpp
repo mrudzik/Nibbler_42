@@ -11,14 +11,14 @@ Core::Core(int x, int y, bool multiplayer)
     MapBuilder::ConnectTiles(_data);
 
     SnakeSpawner::CreateSnakes(_data, multiplayer);
-    CreateFruit();
+    FruitSpawner::CreateFruit(_data);
 }
 
 Core::~Core()
 {
     MapBuilder::ClearMap(_data);
     SnakeSpawner::ClearSnakes(_data);
-    FruitSpawner::ClearFruit(_data);
+    FruitSpawner::ClearFruits(_data);
 }
 
 
@@ -28,24 +28,27 @@ Core::~Core()
 
 void Core::MakeTurn(int direction)
 {
-    if (direction == -2)
+    bool win = false;
+    bool lose = false;
+
+    if (direction < 0)
     {
         direction = _data.snake1->lastDir;
-        _data.snake1->Move(direction, true);
     }
-    else if (direction < 0)
-    {
-        direction = _data.snake1->lastDir;
-        _data.snake1->Move(direction, false);
-    }
-    else
-        _data.snake1->Move(direction, false);
-    // If Fruit
-    //      Occupied by Snake
-    //          Spawn Fruit
 
+    // Check if snake ate any fruits
+    FruitSpawner::CheckFruits(_data);
+    // Spawn Fruits if all eaten
+    if (_data.fruits.empty())
+        win = !FruitSpawner::CreateFruit(_data);
+    lose = !_data.snake1->Move(direction);
 
-    std::cout << "Hi" << std::endl;
+    // Spawn Fruit here
     MapBuilder::ShowMap(_data);
+
+    if (win)
+        throw std::logic_error("Win");
+    if (lose)
+        throw std::logic_error("Lose");
 }
 

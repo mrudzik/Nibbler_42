@@ -25,7 +25,7 @@ private:
     // void ClearSnakes();
     
     // Fruit Stuff
-    void CreateFruit();
+    // void CreateFruit();
 
 public:
     Core(int x, int y, bool multiplayer);

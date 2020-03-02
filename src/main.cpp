@@ -34,7 +34,7 @@ int    InputManager(std::string input)
 
 void    GameLoop()
 {
-    Core gameCore(10, 10, false);
+    Core gameCore(6, 6, false);
 
     while (1)
     {

@@ -13,7 +13,7 @@ struct s_GameData
     Snake* snake1 = NULL;
     Snake* snake2 = NULL;
 
-    Fruit* fruit = NULL;
+    std::vector<Fruit*> fruits;
 };
 
 
