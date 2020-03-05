@@ -20,10 +20,27 @@ int Snake::GetPosY() { return _currPos->GetPosY(); }
 
 bool Snake::Move(int dir)
 {
+	// Check if wrong direction
 	if (dir < 0)
 		dir = lastDir;
-	lastDir = dir;
+	// Check if backwards direction
+	{
+		int backDirs[3] = {dir + 3, dir + 4, dir + 5};
+		for (int i = 0; i < 3; i++)
+		{
 
+		}
+		if (dir == lastDir + 4)
+		{
+			
+		}
+	}
+	
+
+
+	
+	// Normal Movement stuff
+	lastDir = dir;
 	Tile* nextTile = _currPos->GetSide(dir);
 	if (OccupiedBySnake(nextTile->GetPosX(), nextTile->GetPosY()))
 		return false; // Bite own tail;
