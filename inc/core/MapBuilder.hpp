@@ -15,7 +15,8 @@ public:
     static void CreateMap(struct s_GameData &data, int x, int y);
     static void ConnectTiles(struct s_GameData &data);
     static void ClearMap(struct s_GameData &data);
-    static void ShowMap(struct s_GameData &data);
+    static void ShowMap(const struct s_CoreOutput output);
+    static void SliceMap(const struct s_GameData &data, struct s_CoreOutput &output);
 
 };
 

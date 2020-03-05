@@ -3,11 +3,12 @@
 
 #include "DataStructs.hpp"
 
+#include "MapBuilder.hpp"
+#include "SnakeSpawner.hpp"
+#include "FruitSpawner.hpp"
+
 #include <iostream>
 #include <vector>
-
-
-
 
 class Core
 {
@@ -32,7 +33,7 @@ public:
     ~Core();
 
 
-    void MakeTurn(int direction);
+    struct s_CoreOutput MakeTurn(s_CoreInput input);
 
 };
 

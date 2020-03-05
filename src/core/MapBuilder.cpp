@@ -139,46 +139,84 @@ void MapBuilder::ConnectTiles(struct s_GameData &data)
 }
 
 
-void MapBuilder::ShowMap(struct s_GameData &data)
+void MapBuilder::ShowMap(const struct s_CoreOutput output)
 {
     std::vector<std::vector<int>> result;
 
-    // This will translate _data map on result;
-    if (data.tileMap.empty())
-        return;
+    // // This will translate _data map on result;
+    // if (data.tileMap.empty())
+    //     return;
+    // for (size_t y = 0; y < data.tileMap.size(); y++)
+    // {
+    //     std::vector<int> verRow;
+    //     for (size_t x = 0; x < data.tileMap.at(y).size(); x++)
+    //     {
+    //         verRow.push_back(data.tileMap.at(y).at(x)->GetTileContent());
+    //     }
+    //     result.push_back(verRow);
+    // }
+
+    // // This will draw fruit on result
+    // for (size_t i = 0; i < data.fruits.size(); i++)
+    // {
+    //     Fruit* tempFruit = data.fruits[i];
+    //     if (tempFruit == NULL)
+    //         continue;
+    //     result[tempFruit->GetPosY()][tempFruit->GetPosX()] = 5;
+    // }
+
+    // // This will draw snake on result
+    // data.snake1->MarkOccupiedTiles(result);
+
+    // This will Draw map with snake on console
+    for (size_t y = 0; y < output.mapLayer.size(); y++)
+    {
+        for (size_t x = 0; x < output.mapLayer.at(y).size(); x++)
+        {
+            std::cout << " ";
+            if (output.snakeLayer[y][x] != 0)
+                std::cout << output.snakeLayer[y][x];
+            else if (output.fruitLayer[y][x] != 0)
+                std::cout << output.fruitLayer[y][x];
+            else
+                std::cout << output.mapLayer[y][x];           
+        }
+        std::cout << "\n";
+    }
+    std::cout << std::endl;
+}
+
+void MapBuilder::SliceMap(const struct s_GameData &data, struct s_CoreOutput &output)
+{
+    std::vector<std::vector<int>> slice;
+    // Map Layer
+    output.mapLayer.clear();
     for (size_t y = 0; y < data.tileMap.size(); y++)
     {
         std::vector<int> verRow;
+        std::vector<int> emptyLine;
         for (size_t x = 0; x < data.tileMap.at(y).size(); x++)
         {
             verRow.push_back(data.tileMap.at(y).at(x)->GetTileContent());
+            emptyLine.push_back(0);
         }
-        result.push_back(verRow);
+        output.mapLayer.push_back(verRow);
+        slice.push_back(emptyLine);
     }
 
-    // This will draw fruit on result
+    // Snake Layer
+    output.snakeLayer.clear();
+    output.snakeLayer = slice;
+    data.snake1->MarkOccupiedTiles(output.snakeLayer);
+
+    // Fruit Layer
+    output.fruitLayer.clear();
+    output.fruitLayer = slice;
     for (size_t i = 0; i < data.fruits.size(); i++)
     {
         Fruit* tempFruit = data.fruits[i];
         if (tempFruit == NULL)
             continue;
-        result[tempFruit->GetPosY()][tempFruit->GetPosX()] = 5;
+        output.fruitLayer[tempFruit->GetPosY()][tempFruit->GetPosX()] = 5;
     }
-
-    // This will draw snake on result
-    data.snake1->MarkOccupiedTiles(result);
-
-
-
-    // This will Draw map with snake on console
-    for (size_t y = 0; y < result.size(); y++)
-    {
-        for (size_t x = 0; x < result.at(y).size(); x++)
-        {
-            std::cout << " " << result.at(y).at(x);
-        }
-        std::cout << "\n";
-    }
-    std::cout << std::endl;
-
 }

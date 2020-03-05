@@ -4,7 +4,6 @@
 
 #include "Core.hpp"
 
-
 int    InputManager(std::string input)
 {// Temporary function for testing purposes
     if (input.compare("8") == 0)
@@ -36,6 +35,8 @@ void    GameLoop()
 {
     Core gameCore(6, 6, false);
 
+    s_CoreOutput    outputData;
+    s_CoreInput     inputData;
     while (1)
     {
         std::string text;
@@ -47,9 +48,18 @@ void    GameLoop()
             break;
     //////////////////////////////
 
-        gameCore.MakeTurn(InputManager(text));
+        inputData.direction = InputManager(text);
+
+
+        outputData = gameCore.MakeTurn(inputData);
         
-        
+        MapBuilder::ShowMap(outputData);
+
+
+        if (outputData.win)
+            throw std::logic_error("Win");
+        if (outputData.lose)
+            throw std::logic_error("Lose");
     }
 }
 
