@@ -23,27 +23,37 @@ bool Snake::Move(int dir)
 	// Check if wrong direction
 	if (dir < 0)
 		dir = lastDir;
-	// Check if backwards direction
-	{
-		int backDirs[3] = {dir + 3, dir + 4, dir + 5};
-		for (int i = 0; i < 3; i++)
-		{
-
-		}
-		if (dir == lastDir + 4)
-		{
-			
-		}
+	{ // Check if backwards direction
+		int tempDir = lastDir + 4;
+		// Fix direction to readable by soft
+		if (tempDir >= 8) tempDir -= 8;
+		// Check direction
+		if (dir == tempDir) dir = lastDir;
 	}
-	
-
-
-	
 	// Normal Movement stuff
 	lastDir = dir;
 	Tile* nextTile = _currPos->GetSide(dir);
+ 	// Check if bite own tail
 	if (OccupiedBySnake(nextTile->GetPosX(), nextTile->GetPosY()))
 		return false; // Bite own tail;
+	{ // Check on diagonal Movement
+		if (dir == 1 || dir == 3 || dir == 5 || dir == 7)
+		{// Diagonal Movement checks
+			int checkDirs[2] = {dir - 1, dir + 1};
+			int matches = 0;
+			for (int i = 0; i < 2; i++)
+			{
+				int tempDir = checkDirs[i];
+				if (tempDir < 0) tempDir += 8;
+				if (tempDir >= 8) tempDir -= 8;
+
+				Tile* tempTile = _currPos->GetSide(tempDir);
+				if (OccupiedBySnake(tempTile->GetPosX(), tempTile->GetPosY()))
+					matches++;
+			}
+			if (matches > 1) return false;
+		}
+	}
 
 	Tile* newTile = _currPos;
 	_tail.insert(_tail.begin(), {newTile});
