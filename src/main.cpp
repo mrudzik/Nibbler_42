@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Core.hpp"
+#include "Parser.hpp"
 
 int    InputManager(std::string input)
 {// Temporary function for testing purposes
@@ -31,10 +32,8 @@ int    InputManager(std::string input)
 }
 
 
-void    GameLoop()
+void    GameLoop(Core &gameCore)
 {
-    Core gameCore(6, 6, false);
-
     s_CoreOutput    outputData;
     s_CoreInput     inputData;
     while (1)
@@ -68,20 +67,28 @@ void    GameLoop()
 
 int     main(int argv, char** argc)
 {
-    (void)argv;
-    (void)argc;
-    std::cout << "Hello There" << std::endl;
+    std::cout << "Press Enter" << std::endl;
+    
+    Core *gameCore = NULL;
+    try
+    {
+        if (argv < 3)
+        throw std::logic_error("Not enough arguments");
 
-try
-{
-    // Parser here
-    GameLoop();
-}
-catch(const std::exception& e)
-{
-    std::cerr << e.what() << '\n';
+        int xSize = Parser::ParseNum(argc[1]);
+        int ySize = Parser::ParseNum(argc[2]);
+        gameCore = new Core(xSize, ySize, false);
+
+        GameLoop(*gameCore);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    // Clear
+    if (gameCore != NULL) delete gameCore;
+
     std::cout << "Exiting programm" << std::endl;
-}
     system("leaks nibbler");
 
 }

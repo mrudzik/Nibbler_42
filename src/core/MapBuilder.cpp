@@ -143,31 +143,6 @@ void MapBuilder::ShowMap(const struct s_CoreOutput output)
 {
     std::vector<std::vector<int>> result;
 
-    // // This will translate _data map on result;
-    // if (data.tileMap.empty())
-    //     return;
-    // for (size_t y = 0; y < data.tileMap.size(); y++)
-    // {
-    //     std::vector<int> verRow;
-    //     for (size_t x = 0; x < data.tileMap.at(y).size(); x++)
-    //     {
-    //         verRow.push_back(data.tileMap.at(y).at(x)->GetTileContent());
-    //     }
-    //     result.push_back(verRow);
-    // }
-
-    // // This will draw fruit on result
-    // for (size_t i = 0; i < data.fruits.size(); i++)
-    // {
-    //     Fruit* tempFruit = data.fruits[i];
-    //     if (tempFruit == NULL)
-    //         continue;
-    //     result[tempFruit->GetPosY()][tempFruit->GetPosX()] = 5;
-    // }
-
-    // // This will draw snake on result
-    // data.snake1->MarkOccupiedTiles(result);
-
     // This will Draw map with snake on console
     for (size_t y = 0; y < output.mapLayer.size(); y++)
     {
@@ -179,7 +154,13 @@ void MapBuilder::ShowMap(const struct s_CoreOutput output)
             else if (output.fruitLayer[y][x] != 0)
                 std::cout << output.fruitLayer[y][x];
             else
-                std::cout << output.mapLayer[y][x];           
+            {
+                int result = output.mapLayer[y][x];
+                if (result == 0)
+                    std::cout << ".";
+                else
+                    std::cout << result;
+            }     
         }
         std::cout << "\n";
     }

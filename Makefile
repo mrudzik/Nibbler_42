@@ -4,22 +4,27 @@ SRC_DIR :=	./src/
 OBJ_DIR :=	./obj/
 INC_DIR :=	./inc/
 
-SRC = 	main.cpp	\
-		core/Core.cpp 	\
-		core/Tile.cpp	\
-		core/MapBuilder.cpp \
-		core/SnakeSpawner.cpp \
-		core/Snake.cpp	\
-		core/FruitSpawner.cpp \
-		core/Fruit.cpp
+SRC = 	main.cpp				\
+		core/Core.cpp 			\
+		core/Tile.cpp			\
+		core/MapBuilder.cpp 	\
+		core/SnakeSpawner.cpp 	\
+		core/Snake.cpp			\
+		core/FruitSpawner.cpp 	\
+		core/Fruit.cpp			\
+		\
+		parser/Parser.cpp
+
 
 		
 
 #	project object files
 OBJ =       $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
-INCLUDES	=	-I $(INC_DIR)	\
-				-I $(INC_DIR)/core
+INCLUDES	=	-I $(INC_DIR)			\
+				-I $(INC_DIR)/utility 	\
+				-I $(INC_DIR)/core 		\
+				-I $(INC_DIR)/parser
 
 
 CC_FLAGS := -Wall -Wextra -Werror -O3

@@ -1,8 +1,17 @@
 
 #include "Core.hpp"
+#include "CustomExceptions.hpp"
+
 
 Core::Core(int x, int y, bool multiplayer)
 {
+    std::cout << "Map Size x:" << x << " y:" << y << std::endl;
+
+    if (x < 5 || x > 80 || y < 5 || y > 80)
+    {
+        throw CustomException("Wrong map size");
+    }
+
     MapBuilder::CreateMap(_data, x, y);
     MapBuilder::ConnectTiles(_data);
 
